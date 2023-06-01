@@ -6,21 +6,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@Table(name = "shoping_session")
-public class shopingSessionModel {
+@Table(name = "treasury")
+public class TreasuryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "user_id")
-    String UserId;
-
-    @ElementCollection
-    List<Long> orders;
+    Long productId;
+    Integer number;
     Long total;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)

@@ -3,7 +3,7 @@ package com.example.demo.present.requests;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 
-public class addProductToStockRequest {
+public class AddProductToStockRequest {
     @Min(0)
     @JsonProperty("product_id")
     Long productId;

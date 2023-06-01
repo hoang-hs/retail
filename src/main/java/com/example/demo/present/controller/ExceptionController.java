@@ -1,7 +1,7 @@
 
 package com.example.demo.present.controller;
 
-import com.example.demo.dto.errResource;
+import com.example.demo.dto.ErrResource;
 import com.example.demo.exception.AppException;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
@@ -20,70 +20,79 @@ import org.springframework.web.context.request.WebRequest;
 
 
 @RestControllerAdvice
-public class exceptionController {
+public class ExceptionController {
 
-    private static final Logger logger = LoggerFactory.getLogger(exceptionController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
 
     @ExceptionHandler(AppException.class)
-    public ResponseEntity<errResource> handleException(AppException ex) {
-        errResource err = new errResource(ex.getHttpStatus().value(), ex.getMessage());
+    public ResponseEntity<ErrResource> handleException(AppException ex) {
+        ErrResource err = new ErrResource(ex.getHttpStatus().value(), ex.getMessage());
         return ResponseEntity.status(ex.getHttpStatus()).body(err);
     }
 
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public errResource handlerValidationException(ValidationException ex, WebRequest request) {
+    public ErrResource handlerValidationException(ValidationException ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
 //        ex.printStackTrace();
-        return new errResource(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return new ErrResource(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrResource handlerIllegalArgumentException(ValidationException ex, WebRequest request) {
+        String uuid = MDC.get("request_id");
+        logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
+//        ex.printStackTrace();
+        return new ErrResource(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public errResource handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
+    public ErrResource handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
 //        ex.printStackTrace();
         logger.info(ex.getMessage());
-        return new errResource(HttpStatus.BAD_REQUEST.value(), "invalid request");
+        return new ErrResource(HttpStatus.BAD_REQUEST.value(), "invalid request");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public errResource handleConstraintViolationException(MethodArgumentNotValidException ex, WebRequest request) {
+    public ErrResource handleConstraintViolationException(MethodArgumentNotValidException ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
 //        ex.printStackTrace();
-        return new errResource(HttpStatus.BAD_REQUEST.value(), "invalid request");
+        return new ErrResource(HttpStatus.BAD_REQUEST.value(), "invalid request");
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public errResource handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, WebRequest request) {
+    public ErrResource handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
 //        ex.printStackTrace();
-        return new errResource(HttpStatus.NOT_FOUND.value(), "method not support");
+        return new ErrResource(HttpStatus.NOT_FOUND.value(), "method not support");
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public errResource handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, WebRequest request) {
+    public ErrResource handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.warn("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
 //        ex.printStackTrace();
-        return new errResource(HttpStatus.BAD_REQUEST.value(), "message not readable");
+        return new ErrResource(HttpStatus.BAD_REQUEST.value(), "message not readable");
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public errResource globalExceptionHandler(Exception ex, WebRequest request) {
+    public ErrResource globalExceptionHandler(Exception ex, WebRequest request) {
         String uuid = MDC.get("request_id");
         logger.error("id: {}, msg: {}, request description: {}", uuid, ex.getMessage(), request.getDescription(false));
         ex.printStackTrace();
-        return new errResource(HttpStatus.INTERNAL_SERVER_ERROR.value(), "system error");
+        return new ErrResource(HttpStatus.INTERNAL_SERVER_ERROR.value(), "system error");
     }
 
 }

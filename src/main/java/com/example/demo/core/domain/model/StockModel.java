@@ -10,12 +10,13 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "stock")
-public class stockModel {
+public class StockModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "product_id")
+    @JsonProperty("product_id")
     Long productId;
     Integer number;
     @CreationTimestamp
@@ -27,11 +28,11 @@ public class stockModel {
     @JsonProperty("updated_at")
     Timestamp updatedAt;
 
-    public stockModel() {
+    public StockModel() {
 
     }
 
-    public stockModel(Long productId, Integer number) {
+    public StockModel(Long productId, Integer number) {
         this.productId = productId;
         this.number = number;
     }

@@ -4,7 +4,7 @@ package com.example.demo.present.requests;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
-public class createProductRequest {
+public class CreateProductRequest {
     @NotBlank
     String name;
     String description;

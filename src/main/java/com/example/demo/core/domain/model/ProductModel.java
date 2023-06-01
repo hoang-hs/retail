@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "product")
-public class productModel {
+public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,13 +27,13 @@ public class productModel {
     @JsonProperty("updated_at")
     Timestamp updatedAt;
 
-    public productModel(String name, String desc, Long price) {
+    public ProductModel(String name, String desc, Long price) {
         this.name = name;
         this.description = desc;
         this.price = price;
     }
 
-    public productModel( ) {
+    public ProductModel( ) {
 
     }
 

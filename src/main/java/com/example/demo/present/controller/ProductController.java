@@ -1,8 +1,8 @@
 package com.example.demo.present.controller;
 
-import com.example.demo.core.domain.model.productModel;
-import com.example.demo.core.service.productService;
-import com.example.demo.present.requests.createProductRequest;
+import com.example.demo.core.domain.model.ProductModel;
+import com.example.demo.core.service.ProductService;
+import com.example.demo.present.requests.CreateProductRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class productController {
+public class ProductController {
 
-    private final productService productService;
+    private final ProductService productService;
 
     @Autowired
-    public productController(productService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/product")
-    productModel create(@RequestBody @Valid createProductRequest req) {
+    ProductModel create(@RequestBody @Valid CreateProductRequest req) {
         return productService.save(req);
     }
+
+
 
 }
