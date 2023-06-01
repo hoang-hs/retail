@@ -25,6 +25,7 @@ public class StockController {
         return stockService.save(req);
     }
 
+    //Todo fix page
     @RequestMapping(method = RequestMethod.GET, path = "/stock")
     Page<StockModel> getList(@Valid PageRequest req) {
         return stockService.getList(req);
