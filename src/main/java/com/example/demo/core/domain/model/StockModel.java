@@ -15,9 +15,10 @@ public class StockModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     @JsonProperty("product_id")
     Long productId;
+    @Column(name = "number", nullable = false)
     Integer number;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)

@@ -14,9 +14,11 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     String name;
     String description;
-
+    @Column(name = "price", nullable = false)
     Long price;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
@@ -33,7 +35,7 @@ public class ProductModel {
         this.price = price;
     }
 
-    public ProductModel( ) {
+    public ProductModel() {
 
     }
 

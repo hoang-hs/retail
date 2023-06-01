@@ -5,10 +5,7 @@ import com.example.demo.core.service.ProductService;
 import com.example.demo.present.requests.CreateProductRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -25,6 +22,8 @@ public class ProductController {
         return productService.save(req);
     }
 
-
-
+    @RequestMapping(method = RequestMethod.GET, path = "/product/{id}")
+    ProductModel get(@PathVariable(value = "id") Long id) {
+        return productService.get(id);
+    }
 }
