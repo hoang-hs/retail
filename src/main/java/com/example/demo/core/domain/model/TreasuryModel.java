@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @Table(name = "treasury")
-public class treasuryModel {
+public class TreasuryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

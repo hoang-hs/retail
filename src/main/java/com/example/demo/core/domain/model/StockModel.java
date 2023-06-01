@@ -1,5 +1,6 @@
 package com.example.demo.core.domain.model;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,16 +9,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "product")
-public class productModel {
+@Table(name = "stock")
+public class StockModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    String name;
-    String description;
-
-    Long price;
+    @Column(name = "product_id", nullable = false)
+    @JsonProperty("product_id")
+    Long productId;
+    @Column(name = "number", nullable = false)
+    Integer number;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     @JsonProperty("created_at")
@@ -27,14 +29,13 @@ public class productModel {
     @JsonProperty("updated_at")
     Timestamp updatedAt;
 
-    public productModel(String name, String desc, Long price) {
-        this.name = name;
-        this.description = desc;
-        this.price = price;
+    public StockModel() {
+
     }
 
-    public productModel( ) {
-
+    public StockModel(Long productId, Integer number) {
+        this.productId = productId;
+        this.number = number;
     }
 
     public Long getId() {
@@ -45,28 +46,20 @@ public class productModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public Timestamp getCreatedAt() {

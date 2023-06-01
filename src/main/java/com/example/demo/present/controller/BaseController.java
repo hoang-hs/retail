@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
-public class baseController {
+public class BaseController {
 
     @GetMapping("/ping")
     String Ping() {
