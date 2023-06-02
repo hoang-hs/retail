@@ -1,8 +1,8 @@
 
 package com.example.demo.present.controller;
 
-import com.example.demo.dto.ErrResource;
 import com.example.demo.exception.AppException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
@@ -21,6 +21,37 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class ExceptionController {
+
+    static class ErrResource {
+
+        @JsonProperty("http_code")
+        private int httpCode;
+
+        @JsonProperty("message")
+        private String message;
+
+        public ErrResource(int httpCode, String message) {
+            this.httpCode = httpCode;
+            this.message = message;
+        }
+
+        public int getHttpCode() {
+            return httpCode;
+        }
+
+        public void setHttpCode(int httpCode) {
+            this.httpCode = httpCode;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
+
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 

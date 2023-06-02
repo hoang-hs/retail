@@ -3,6 +3,7 @@ package com.example.demo.core.service;
 import com.example.demo.core.domain.CustomerRepository;
 import com.example.demo.core.domain.model.CustomerModel;
 import com.example.demo.exception.AppException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.present.requests.CreateCustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,14 @@ public class CustomerService {
         CustomerModel p = new CustomerModel(req.getName(), req.getTelephone());
         customerRepository.save(p);
         return p;
+    }
+
+    public CustomerModel get(String telephone) {
+        Optional<CustomerModel> optionalProduct = customerRepository.findByTelephone(telephone);
+        if (optionalProduct.isEmpty()) {
+            throw ResourceNotFoundException.Default();
+        }
+        return optionalProduct.get();
     }
 
 }

@@ -20,13 +20,13 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/stock")
+    @RequestMapping(method = RequestMethod.POST, path = "/stocks")
     StockModel create(@RequestBody @Valid AddProductToStockRequest req) {
         return stockService.save(req);
     }
 
     //Todo fix page
-    @RequestMapping(method = RequestMethod.GET, path = "/stock")
+    @RequestMapping(method = RequestMethod.GET, path = "/stocks/all")
     Page<StockModel> getList(@Valid PageRequest req) {
         return stockService.getList(req);
     }

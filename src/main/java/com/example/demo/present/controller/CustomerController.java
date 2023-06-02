@@ -5,10 +5,7 @@ import com.example.demo.core.service.CustomerService;
 import com.example.demo.present.requests.CreateCustomerRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
@@ -20,9 +17,15 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/customer")
+    @RequestMapping(method = RequestMethod.POST, path = "/customers")
     CustomerModel create(@RequestBody @Valid CreateCustomerRequest req) {
         return customerService.save(req);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/customers")
+    CustomerModel get(@RequestParam String telephone) {
+        return customerService.get(telephone);
+    }
+
 
 }

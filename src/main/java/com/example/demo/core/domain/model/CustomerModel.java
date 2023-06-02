@@ -3,14 +3,12 @@ package com.example.demo.core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity
-@NoArgsConstructor
 @Table(name = "customer")
 public class CustomerModel {
     @Id
@@ -33,6 +31,9 @@ public class CustomerModel {
     public CustomerModel(String name, String telephone) {
         this.name = name;
         this.telephone = telephone;
+    }
+
+    public CustomerModel() {
     }
 
     public Long getId() {

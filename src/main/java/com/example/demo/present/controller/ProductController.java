@@ -17,12 +17,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/product")
+    @RequestMapping(method = RequestMethod.POST, path = "/products")
     ProductModel create(@RequestBody @Valid CreateProductRequest req) {
         return productService.save(req);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/product/{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/products/{id}")
     ProductModel get(@PathVariable(value = "id") Long id) {
         return productService.get(id);
     }
