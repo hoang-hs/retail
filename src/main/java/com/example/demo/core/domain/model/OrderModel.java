@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@NoArgsConstructor
 @Table(name = "order_info")
 public class OrderModel {
     @Id
@@ -17,7 +16,7 @@ public class OrderModel {
     private Long id;
     @Column(name = "product_id")
     Long productId;
-    String number;
+    Integer number;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     Timestamp createdAt;
@@ -25,4 +24,11 @@ public class OrderModel {
     @Column(name = "updated_at")
     Timestamp updatedAt;
 
+    public OrderModel(Long productId, Integer number) {
+        this.productId = productId;
+        this.number = number;
+    }
+
+    public OrderModel() {
+    }
 }

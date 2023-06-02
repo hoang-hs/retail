@@ -17,7 +17,7 @@ public class ShopingSessionModel {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "user_id")
-    String UserId;
+    Long userId;
 
     @ElementCollection
     List<Long> orders;
@@ -29,4 +29,10 @@ public class ShopingSessionModel {
     @Column(name = "updated_at")
     Timestamp updatedAt;
 
+
+    public ShopingSessionModel(Long userId, List<Long> orders, Long total) {
+        this.userId = userId;
+        this.orders = orders;
+        this.total = total;
+    }
 }

@@ -3,6 +3,7 @@ package com.example.demo.core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "customer")
+@Getter
 public class CustomerModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,23 +38,23 @@ public class CustomerModel {
     public CustomerModel() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String getTelephone() {
+//        return telephone;
+//    }
+//
+//    public Timestamp getCreatedAt() {
+//        return createdAt;
+//    }
+//
+//    public Timestamp getUpdatedAt() {
+//        return updatedAt;
+//    }
 }

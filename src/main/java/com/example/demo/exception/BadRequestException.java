@@ -7,7 +7,7 @@ public class BadRequestException {
         return new AppException("invalid request", HttpStatus.BAD_REQUEST);
     }
 
-    public static AppException WithMessage(String msg) {
+    public static AppException WithMessage(String msg, String string) {
         return new AppException(msg, HttpStatus.BAD_REQUEST);
     }
 }
