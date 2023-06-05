@@ -33,15 +33,10 @@ public class SessionService {
         validate(req);
         Long total = calculateTotal(req);
 
-//        List<OrderModel> orders = new ArrayList<>();
-//        req.getOrders().forEach(i -> orders.add(new OrderModel(i.getProductId(), i.getNumber())));
-
-//        List<Long> orderIds = saveOrder(orders);
         List<OrderModel> orders = new ArrayList<>();
         req.getOrders().forEach(i -> orders.add(new OrderModel(i.getProductId(), i.getNumber())));
-//        ShopingSessionModel sessionModel = new ShopingSessionModel(req.getCustomerId(), orders, total);
-//        return sessionRepository.save(sessionModel);
-            return new ShopingSessionModel();
+        ShopingSessionModel sessionModel = new ShopingSessionModel(req.getCustomerId(), orders, total);
+        return sessionRepository.save(sessionModel);
     }
 
     void validate(CreateShopingSessionRequest req) {
@@ -51,7 +46,7 @@ public class SessionService {
         }
     }
 
-    Long calculateTotal( CreateShopingSessionRequest req) {
+    Long calculateTotal(CreateShopingSessionRequest req) {
         Set<Long> setProductId = new HashSet<Long>();
         req.getOrders().forEach(i -> setProductId.add(i.getProductId()));
         List<Long> listProductIds = new ArrayList<>(setProductId);

@@ -24,7 +24,9 @@ public class ShopingSessionModel {
     @Column(name = "user_id")
     Long userId;
 
-    @Convert(converter = JpaConverterJson.class)
+//    @Convert(converter = JpaConverterJson.class)
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     List<OrderModel> orders;
 
     Long total;
