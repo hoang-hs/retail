@@ -38,23 +38,23 @@ public class CustomerModel {
     public CustomerModel() {
     }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getTelephone() {
-//        return telephone;
-//    }
-//
-//    public Timestamp getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public Timestamp getUpdatedAt() {
-//        return updatedAt;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
 }

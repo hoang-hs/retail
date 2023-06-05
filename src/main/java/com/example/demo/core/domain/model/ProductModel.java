@@ -14,7 +14,6 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Column(name = "name", nullable = false)
     String name;
     String description;
