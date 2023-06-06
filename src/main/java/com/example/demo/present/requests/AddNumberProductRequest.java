@@ -6,13 +6,13 @@ import jakarta.validation.constraints.NotNull;
 public class AddNumberProductRequest {
     @NotNull
     @Min(0)
-    Long productId;
-    @NotNull
-    @Min(0)
     Integer number;
 
     public AddNumberProductRequest() {
-        productId = 0L;
         number = 0;
+    }
+
+    public @NotNull Integer getNumber() {
+        return number;
     }
 }

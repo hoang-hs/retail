@@ -2,6 +2,7 @@ package com.example.demo.present.controller;
 
 import com.example.demo.core.domain.model.ProductModel;
 import com.example.demo.core.service.ProductService;
+import com.example.demo.present.requests.AddNumberProductRequest;
 import com.example.demo.present.requests.CreateProductRequest;
 import com.example.demo.present.requests.PageRequest;
 import jakarta.validation.Valid;
@@ -32,6 +33,11 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET, path = "/products")
     Page<ProductModel> getList(@Valid PageRequest req) {
         return productService.getList(req);
+    }
+
+    @PostMapping("/products/{id}")
+    ProductModel addNumber(@PathVariable(value = "id") Long id, @RequestBody AddNumberProductRequest req) {
+        return productService.addNumber(id, req);
     }
 
 }

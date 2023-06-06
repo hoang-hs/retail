@@ -47,25 +47,25 @@ public class SessionService {
     }
 
     Long calculateTotal(CreateShopingSessionRequest req) {
-        Set<Long> setProductId = new HashSet<Long>();
+        Set<Long> setProductId = new HashSet<>();
         req.getOrders().forEach(i -> setProductId.add(i.getProductId()));
         List<Long> listProductIds = new ArrayList<>(setProductId);
         List<ProductModel> products = productRepository.findAllById(listProductIds);
 
-        Map<Long, Long> mapPrice = new HashMap<Long, Long>();
+        Map<Long, Long> mapPrice = new HashMap<>();
         products.forEach(p -> mapPrice.put(p.getId(), p.getPrice()));
 
         AtomicReference<Long> total = new AtomicReference<>((long) 0);
         req.getOrders().forEach(i ->
         {
             if (!mapPrice.containsKey(i.getProductId())) {
-                throw BadRequestException.WithMessage("product id not found, id:{}", i.getProductId().toString());
+                String msg = String.format("product id not found, id:{%s}", i.getProductId());
+                throw BadRequestException.WithMessage(msg);
             }
             total.updateAndGet(v -> v + i.getNumber() * mapPrice.get(i.getProductId()));
         });
         return total.get();
     }
-
 
 
 }

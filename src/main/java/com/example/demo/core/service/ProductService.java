@@ -2,7 +2,9 @@ package com.example.demo.core.service;
 
 import com.example.demo.core.domain.ProductRepository;
 import com.example.demo.core.domain.model.ProductModel;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.present.requests.AddNumberProductRequest;
 import com.example.demo.present.requests.CreateProductRequest;
 import com.example.demo.present.requests.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,16 @@ public class ProductService {
 
     public Page<ProductModel> getList(PageRequest req) {
         return productRepository.findAll(req.buildPageable());
+    }
+
+    public ProductModel addNumber(Long id, AddNumberProductRequest req) {
+        Optional<ProductModel> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            throw BadRequestException.WithMessage("product not found");
+        }
+        ProductModel product = optionalProduct.get();
+        product.setNumber(product.getNumber() + req.getNumber());
+        return productRepository.save(product);
     }
 
 }
