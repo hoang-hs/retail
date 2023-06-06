@@ -11,6 +11,9 @@ public class CreateProductRequest {
     @Min(value = 0)
     Long price;
 
+    @Min(value = 1)
+    Integer number;
+
     public String getName() {
         return name;
     }
@@ -21,5 +24,9 @@ public class CreateProductRequest {
 
     public Long getPrice() {
         return price;
+    }
+
+    public Integer getNumber() {
+        return number;
     }
 }
