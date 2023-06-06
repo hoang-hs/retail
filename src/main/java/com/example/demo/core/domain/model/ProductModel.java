@@ -14,25 +14,28 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Column(name = "name", nullable = false)
     String name;
+    @Column(name = "description")
     String description;
     @Column(name = "price", nullable = false)
     Long price;
+    @Column(name = "number", nullable = false)
+    Integer number;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     @JsonProperty("created_at")
     Timestamp createdAt;
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     @JsonProperty("updated_at")
     Timestamp updatedAt;
 
-    public ProductModel(String name, String desc, Long price) {
+    public ProductModel(String name, String desc, Long price, Integer number) {
         this.name = name;
         this.description = desc;
         this.price = price;
+        this.number = number;
     }
 
     public ProductModel() {
@@ -85,5 +88,13 @@ public class ProductModel {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

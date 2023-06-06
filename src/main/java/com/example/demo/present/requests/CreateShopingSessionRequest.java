@@ -1,22 +1,26 @@
 package com.example.demo.present.requests;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 public class CreateShopingSessionRequest {
-    @NotBlank
+    @NotEmpty
     List<Order> orders;
 
+    @NotNull
     @Min(0)
-    Long userId;
+    @JsonProperty("customer_id")
+    Long customerId;
 
     public List<Order> getOrders() {
         return orders;
     }
 
-    public Long getUserId() {
-        return userId;
+    public @NotNull Long getCustomerId() {
+        return customerId;
     }
 }

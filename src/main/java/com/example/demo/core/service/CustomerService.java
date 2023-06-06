@@ -6,6 +6,7 @@ import com.example.demo.exception.AppException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.present.requests.CreateCustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,11 @@ public class CustomerService {
             throw new AppException("name of product have been exist", HttpStatus.NOT_IMPLEMENTED);
         }
         CustomerModel p = new CustomerModel(req.getName(), req.getTelephone());
-        customerRepository.save(p);
+        try {
+            customerRepository.save(p);
+        } catch (DataIntegrityViolationException ex) {
+            throw ResourceNotFoundException.WithMessage("telephone already exist");
+        }
         return p;
     }
 

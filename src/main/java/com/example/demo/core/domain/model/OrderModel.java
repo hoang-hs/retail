@@ -1,28 +1,12 @@
 package com.example.demo.core.domain.model;
 
-import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Timestamp;
-
-@Entity
-@Table(name = "order_info")
 public class OrderModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "product_id")
+    @JsonProperty("product_id")
     Long productId;
+    @JsonProperty("number")
     Integer number;
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
-    Timestamp createdAt;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    Timestamp updatedAt;
 
     public OrderModel(Long productId, Integer number) {
         this.productId = productId;
@@ -30,5 +14,21 @@ public class OrderModel {
     }
 
     public OrderModel() {
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

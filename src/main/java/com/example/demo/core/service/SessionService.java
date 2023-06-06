@@ -1,7 +1,6 @@
 package com.example.demo.core.service;
 
 import com.example.demo.core.domain.CustomerRepository;
-import com.example.demo.core.domain.OrderRepository;
 import com.example.demo.core.domain.ProductRepository;
 import com.example.demo.core.domain.ShopingSessionRepository;
 import com.example.demo.core.domain.model.CustomerModel;
@@ -22,14 +21,12 @@ public class SessionService {
     private final ShopingSessionRepository sessionRepository;
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
-    private final OrderRepository orderRepository;
 
     @Autowired
-    public SessionService(ShopingSessionRepository sessionRepository, ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
+    public SessionService(ShopingSessionRepository sessionRepository, ProductRepository productRepository, CustomerRepository customerRepository) {
         this.sessionRepository = sessionRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
-        this.orderRepository = orderRepository;
     }
 
     public ShopingSessionModel save(CreateShopingSessionRequest req) {
@@ -38,22 +35,19 @@ public class SessionService {
 
         List<OrderModel> orders = new ArrayList<>();
         req.getOrders().forEach(i -> orders.add(new OrderModel(i.getProductId(), i.getNumber())));
-
-        List<Long> orderIds = saveOrder(orders);
-
-        ShopingSessionModel sessionModel = new ShopingSessionModel(req.getUserId(), orderIds, total);
+        ShopingSessionModel sessionModel = new ShopingSessionModel(req.getCustomerId(), orders, total);
         return sessionRepository.save(sessionModel);
     }
 
     void validate(CreateShopingSessionRequest req) {
-        Optional<CustomerModel> customerModel = customerRepository.findById(req.getUserId());
+        Optional<CustomerModel> customerModel = customerRepository.findById(req.getCustomerId());
         if (customerModel.isEmpty()) {
             throw ResourceNotFoundException.WithMessage("customer not found");
         }
     }
 
     Long calculateTotal(CreateShopingSessionRequest req) {
-        Set<Long> setProductId = new HashSet<Long>();
+        Set<Long> setProductId = new HashSet<>();
         req.getOrders().forEach(i -> setProductId.add(i.getProductId()));
         List<Long> listProductIds = new ArrayList<>(setProductId);
         List<ProductModel> products = productRepository.findAllById(listProductIds);
@@ -65,15 +59,13 @@ public class SessionService {
         req.getOrders().forEach(i ->
         {
             if (!mapPrice.containsKey(i.getProductId())) {
-                throw BadRequestException.WithMessage("product id not found, id:{}", i.getProductId().toString());
+                String msg = String.format("product id not found, id:{%s}", i.getProductId());
+                throw BadRequestException.WithMessage(msg);
             }
             total.updateAndGet(v -> v + i.getNumber() * mapPrice.get(i.getProductId()));
         });
-        return total.get()
+        return total.get();
     }
 
-    private List<Long> saveOrder(List<OrderModel> orders) {
-        List<OrderModel> orderModels = productRepository.save(orders);
 
-    }
 }
