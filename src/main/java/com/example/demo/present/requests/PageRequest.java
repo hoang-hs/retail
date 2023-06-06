@@ -12,6 +12,12 @@ public class PageRequest {
     @JsonProperty("size")
     Integer size;
 
+
+    public PageRequest() {
+        page = 1;
+        size = 10;
+    }
+
     public Integer getPage() {
         return page - 1;
     }
@@ -19,14 +25,6 @@ public class PageRequest {
 
     public Integer getSize() {
         return this.size;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 
     public Pageable buildPageable() {

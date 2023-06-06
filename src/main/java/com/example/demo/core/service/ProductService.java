@@ -4,7 +4,9 @@ import com.example.demo.core.domain.ProductRepository;
 import com.example.demo.core.domain.model.ProductModel;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.present.requests.CreateProductRequest;
+import com.example.demo.present.requests.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -35,4 +37,10 @@ public class ProductService {
         }
         return optionalProduct.get();
     }
+
+
+    public Page<ProductModel> getList(PageRequest req) {
+        return productRepository.findAll(req.buildPageable());
+    }
+
 }
