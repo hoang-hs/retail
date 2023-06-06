@@ -1,13 +1,8 @@
 package com.example.demo.core.domain.model;
 
-import com.example.demo.present.requests.Order;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
@@ -21,12 +16,11 @@ public class ShopingSessionModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @Column(name = "user_id")
     Long userId;
 
-//    @Convert(converter = JpaConverterJson.class)
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
+    @Convert(converter = JpaConverterJson.class)
     List<OrderModel> orders;
 
     Long total;

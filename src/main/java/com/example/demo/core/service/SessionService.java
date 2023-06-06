@@ -66,10 +66,6 @@ public class SessionService {
         return total.get();
     }
 
-//    private @NotNull List<Long> saveOrder(List<OrderModel> orders) {
-//        List<OrderModel> orderModels = orderRepository.saveAll(orders);
-//        List<Long> ids = new ArrayList<>();
-//        orderModels.forEach(i -> ids.add(i.getId()));
-//        return ids;
-//    }
+
+
 }
