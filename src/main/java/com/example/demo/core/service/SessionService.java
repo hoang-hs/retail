@@ -54,12 +54,18 @@ public class SessionService {
 
         Map<Long, Long> mapPrice = new HashMap<>();
         products.forEach(p -> mapPrice.put(p.getId(), p.getPrice()));
+        Map<Long, Integer> mapNumber = new HashMap<>();
+        products.forEach(p -> mapNumber.put(p.getId(), p.getNumber()));
 
         AtomicReference<Long> total = new AtomicReference<>((long) 0);
         req.getOrders().forEach(i ->
         {
             if (!mapPrice.containsKey(i.getProductId())) {
-                String msg = String.format("product id not found, id:{%s}", i.getProductId());
+                String msg = String.format("product id not found, id:%s", i.getProductId());
+                throw BadRequestException.WithMessage(msg);
+            }
+            if (mapNumber.get(i.getProductId()) < i.getNumber()) {
+                String msg = String.format("number product is not enough, id:%s", i.getProductId());
                 throw BadRequestException.WithMessage(msg);
             }
             total.updateAndGet(v -> v + i.getNumber() * mapPrice.get(i.getProductId()));
